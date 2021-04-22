@@ -1,16 +1,32 @@
 import Link from 'next/link';
+import { ICharacter } from '../../types';
 
 import s from './Film.module.scss';
 
 type Props = {
-
+  title?: string;
+  episodeID?: string;
+  openingCrawl?: string;
+  characters: Array<ICharacter>;
 };
 
-export function Film({  }: Props): JSX.Element {
+export function Film({
+  title, episodeID, openingCrawl, characters
+}: Props): JSX.Element {
   return (
     <section className={s.film}>
       <h2 className={s.film__title}>
-        Episode X
+        {title}
+        {episodeID}
+        {openingCrawl}
+        {characters.map((character, i) => (
+          <li key={i}>
+            <Link href={`characters/${character.id}`}>
+              {character.name}
+            </Link>
+          </li>
+        ))}
+        
       </h2>
     </section>
   );
